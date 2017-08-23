@@ -21,7 +21,7 @@ if [ "$response" = "y" ] ; then
 	echo 'The CIDR mask /24 will be used for the subnet scans'
 
 	echo 'Initiating subnet ping scan...'
-	(nmap -sn -v -oX $ip-subnet-ping-scan $ip\/24; echo '--------------------Subnet ping scan complete--------------------') &
+	(nmap -sn -oX $ip-subnet-ping-scan $ip\/24; echo '--------------------Subnet ping scan complete--------------------') &
 
 	echo 'Initiating subnet ICS scan...'
 	(nmap -sT -sU -sV -p U:47808-47810,T:21-25,80,443,445,502-509,1911,3011,4011,4911,8080 -v -Pn --script banner -O -oX $ip-subnet-ICS-scan $ip\/24; echo '--------------------Subnet ICS scan complete--------------------') &
@@ -34,4 +34,4 @@ echo 'Intiating BACnet interrogation...'
 echo 'Intiating ICS device port scan...'
 (nmap -sT -sU -sV -p U:47808-47810,T:21-25,80,443,445,502-509,1911,3011,4011,4911,8080 -v -Pn --script banner -O -oX $ip-ICS-port-scan $ip; echo '--------------------ICS device port scan complete--------------------')
 
-exit $?
+exit 0
