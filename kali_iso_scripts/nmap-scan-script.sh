@@ -34,4 +34,4 @@ nmap -sU -p 47808 -v -Pn --script bacnet-info -oX $ip-BACnet-interrogation $ip &
 echo 'Intiating ICS device port scan...'
 nmap -sT -sU -sV -p U:47808-47810,T:21-25,80,443,445,502-509,1911,3011,4011,4911,8080 -v -Pn --script banner -O -oX $ip-ICS-port-scan $ip
 
-exit 0
+exit $?
