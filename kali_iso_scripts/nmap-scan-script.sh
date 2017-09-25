@@ -21,17 +21,17 @@ if [ "$response" = "y" ] ; then
 	echo 'The CIDR mask /24 will be used for the subnet scans'
 
 	echo 'Initiating subnet ping scan...'
-	(nmap -sn -v -oX $ip-subnet-ping-scan $ip\/24; echo '--------------------Subnet ping scan complete--------------------') &
+	(nmap -sn -v --no-stylesheet -oX $ip-subnet-ping-scan $ip\/24; echo '--------------------Subnet ping scan complete--------------------') &
 
 	echo 'Initiating subnet ICS scan...'
-	(nmap -sT -sU -sV -p U:47807-47810,T:21-25,80-82,443,445,500-509,1910-1912,3010-3012,4010-4012,4910-4912,8080-8082 -v -Pn --script banner -O -oX $ip-subnet-ICS-scan $ip\/24; echo '--------------------Subnet ICS scan complete--------------------') &
+	(nmap -sT -sU -sV -p U:47807-47810,T:21-25,80-82,443,445,500-509,1910-1912,3010-3012,4010-4012,4910-4912,8080-8082 -v -Pn --script banner -O --no-stylesheet -oX $ip-subnet-ICS-scan $ip\/24; echo '--------------------Subnet ICS scan complete--------------------') &
 
 fi
 
 echo 'Intiating BACnet interrogation...'
-(nmap -sU -p 47808 -v -Pn --script bacnet-info -oX $ip-BACnet-interrogation $ip; echo '--------------------BACnet interrogation complete--------------------') &
+(nmap -sU -p 47808 -v -Pn --script bacnet-info --no-stylesheet -oX $ip-BACnet-interrogation $ip; echo '--------------------BACnet interrogation complete--------------------') &
 
 echo 'Intiating ICS device port scan...'
-(nmap -sT -sU -sV -p U:47807-47810,T:21-25,80-82,443,445,500-509,1910-1912,3010-3012,4010-4012,4910-4912,8080-8082 -v -Pn --script banner -O -oX $ip-ICS-port-scan $ip; echo '--------------------ICS device port scan complete--------------------')
+(nmap -sT -sU -sV -p U:47807-47810,T:21-25,80-82,443,445,500-509,1910-1912,3010-3012,4010-4012,4910-4912,8080-8082 -v -Pn --script banner -O --no-stylesheet -oX $ip-ICS-port-scan $ip; echo '--------------------ICS device port scan complete--------------------')
 
 exit 0
